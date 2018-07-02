@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">PaymentFlow</string>
+    <string name="app_name">Payment Flow</string>
+    <string name="amount">Monto</string>
 </resources>

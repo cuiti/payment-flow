@@ -6,11 +6,14 @@ class AmountPresenter(private val navigationProvider: NavigationProvider,
                       var presentation: AmountPresentation){
 
     fun onContinueClicked(input: String){
-        if (input.isEmpty()) presentation.setError("Ingrese un monto")
-        else checkValidInput(input)
+        if (isInputValid(input))
+            navigationProvider.onAmountSelected(input.toFloat())
+        else
+            presentation.setError("Ingrese un monto válido")
     }
 
-    private fun checkValidInput(input: String){
-        navigationProvider.onAmountSelected(input.toFloat())
+    private fun isInputValid(input: String): Boolean{
+        return input.isNotBlank() &&
+                input.toFloat() > 0
     }
 }

@@ -1,6 +1,5 @@
 package alfonso.paymentflow.method
 
-import alfonso.paymentflow.BasePresenter
 import alfonso.paymentflow.BuildConfig
 import alfonso.paymentflow.OnOptionClickListener
 import alfonso.paymentflow.main.NavigationProvider
@@ -11,8 +10,7 @@ import alfonso.paymentflow.network.ApiManager
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class PaymentMethodPresenter(val navigationProvider: NavigationProvider)
-    : BasePresenter<PaymentMethodPresentation>(), OnOptionClickListener {
+class PaymentMethodPresenter(private val navigationProvider: NavigationProvider): OnOptionClickListener {
 
     /* Returns only active credit card payment methods*/
     fun getCreditCardMethods() : Single<List<PaymentMethod>> {

@@ -2,18 +2,17 @@ package alfonso.paymentflow.amount
 
 import alfonso.paymentflow.main.NavigationProvider
 
-class AmountPresenter(private val navigationProvider: NavigationProvider,
-                      var presentation: AmountPresentation){
+class AmountPresenter(private val navigationProvider: NavigationProvider){
 
-    fun onContinueClicked(input: String){
-        if (isInputValid(input))
+    fun handleAmountInput(input: String): Boolean{
+        return if (isInputValid(input)) {
             navigationProvider.onAmountSelected(input.toFloat())
-        else
-            presentation.setError("Ingrese un monto válido")
+            true
+        }
+        else false
     }
 
     private fun isInputValid(input: String): Boolean{
-        return input.isNotBlank() &&
-                input.toFloat() > 0
+        return input.isNotBlank() && input.toFloat() > 0f
     }
 }

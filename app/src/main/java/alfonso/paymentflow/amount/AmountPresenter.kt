@@ -13,6 +13,6 @@ class AmountPresenter(private val navigationProvider: NavigationProvider){
     }
 
     private fun isInputValid(input: String): Boolean{
-        return input.isNotBlank() && input.toFloat() > 0f
+        return input.isNotBlank() && input.toFloat() >= 0.01f
     }
 }

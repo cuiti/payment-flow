@@ -47,7 +47,10 @@ class MainActivity : AppCompatActivity(), NavigationProvider {
 
     override fun onPaymentMethodSelected(method: PaymentMethod) {
         paymentRequest.method = method
-        showCardIssuerSelection(method.id)
+        if (method.isAmountAllowed(paymentRequest.amount))
+            showCardIssuerSelection(method.id)
+        else
+            onError(Exception("No se puede pagar $${paymentRequest.amount} con ${method.name}"))
     }
 
     override fun onCardIssuerSelected(issuer: CardIssuer?) {
@@ -76,7 +79,7 @@ class MainActivity : AppCompatActivity(), NavigationProvider {
     override fun onError(error: Throwable) {
         AlertDialog.Builder(this)
                 .setTitle("Ha ocurrido un error")
-                .setMessage("Intente nuevamente. \n"+error.localizedMessage)
+                .setMessage(error.localizedMessage)
                 .setPositiveButton("Ok"){ _,_ -> restart()}
                 .create().show()
     }

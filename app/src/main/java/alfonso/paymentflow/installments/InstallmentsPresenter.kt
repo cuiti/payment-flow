@@ -15,7 +15,7 @@ class InstallmentsPresenter (private val navigationProvider: NavigationProvider)
         navigationProvider.onInstallmentsSelected(item as PayerCost)
     }
 
-    fun getPayerCosts(methodId: String, issuerId: String, amount: Float): Single<List<PayerCost>>{
+    fun getPayerCosts(methodId: String, issuerId: String?, amount: Float): Single<List<PayerCost>>{
         return ApiManager.getMercadoPagoService()
                 .getInstallments(BuildConfig.ApiKey, amount, issuerId, methodId)
                 .map { installments: List<Installment> ->  installments[0].payerCosts}

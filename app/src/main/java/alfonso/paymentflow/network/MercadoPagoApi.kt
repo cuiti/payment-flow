@@ -4,6 +4,7 @@ import alfonso.paymentflow.model.CardIssuer
 import alfonso.paymentflow.model.Installment
 import alfonso.paymentflow.model.PaymentMethod
 import io.reactivex.Single
+import io.reactivex.annotations.Nullable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -19,6 +20,6 @@ interface MercadoPagoApi {
     @GET("payment_methods/installments")
     fun getInstallments(@Query("public_key") key: String,
                         @Query("amount") amount: Float,
-                        @Query("issuer.id") issuerId: String,
-                       @Query("payment_method_id") id: String) : Single<List<Installment>>
+                        @Nullable @Query("issuer.id") issuerId: String?,
+                        @Query("payment_method_id") id: String) : Single<List<Installment>>
 }

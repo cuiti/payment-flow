@@ -16,7 +16,7 @@ class InstallmentsFragment : Fragment() {
     private lateinit var presenter: InstallmentsPresenter
     private lateinit var adapter: OptionsAdapter<PayerCost>
     private lateinit var paymentMethodId: String
-    private lateinit var issuerId: String
+    private var issuerId: String? = null
     private var amount: Float = 0f
 
     companion object {
@@ -24,7 +24,7 @@ class InstallmentsFragment : Fragment() {
         const val keyIssuerId = "key_issuer_id"
         const val keyAmount = "key_amount"
 
-        fun init(paymentMethodId: String, issuerId: String, amount: Float): InstallmentsFragment {
+        fun init(paymentMethodId: String, issuerId: String?, amount: Float): InstallmentsFragment {
             val args = Bundle()
             args.putString(keyPaymentMethodId, paymentMethodId)
             args.putFloat(keyAmount, amount)
@@ -39,7 +39,7 @@ class InstallmentsFragment : Fragment() {
         presenter = InstallmentsPresenter(activity as NavigationProvider)
         adapter = OptionsAdapter(presenter)
         paymentMethodId = arguments?.getString(keyPaymentMethodId)?: ""
-        issuerId = arguments?.getString(keyIssuerId)?: ""
+        issuerId = arguments?.getString(keyIssuerId)
         amount = arguments?.getFloat(keyAmount)?:0f
         return inflater.inflate(R.layout.fragment_option_list, container, false)
     }

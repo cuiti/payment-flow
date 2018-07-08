@@ -19,5 +19,7 @@ class BankPresenter(private val navigationProvider: NavigationProvider): OnOptio
                 .getCardIssuers(BuildConfig.ApiKey, id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError{ error -> navigationProvider.onError(error) }
+                .doOnSuccess { issuers ->
+                    if (issuers.isEmpty()) navigationProvider.onCardIssuerSelected(null) }
     }
 }

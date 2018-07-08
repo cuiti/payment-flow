@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), NavigationProvider {
         showFragment(BankFragment.init(paymentMethodId))
     }
 
-    private fun showInstallmentsSelection(paymentMethodId: String, issuerId: String, amount: Float){
+    private fun showInstallmentsSelection(paymentMethodId: String, issuerId: String?, amount: Float){
         showFragment(InstallmentsFragment.init(paymentMethodId, issuerId, amount))
     }
 
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), NavigationProvider {
 
     override fun onCardIssuerSelected(issuer: CardIssuer?) {
         paymentRequest.issuer = issuer
-        showInstallmentsSelection(paymentRequest.method.id, issuer?.id?:"0", paymentRequest.amount)
+        showInstallmentsSelection(paymentRequest.method.id, issuer?.id, paymentRequest.amount)
     }
 
     override fun onInstallmentsSelected(costs: PayerCost) {
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationProvider {
     private fun showValuesDialog(){
         val values = arrayOf("$"+paymentRequest.amount,
                             paymentRequest.method.name,
-                            paymentRequest.issuer?.name,
+                            paymentRequest.issuer?.name?:"",
                             paymentRequest.payerCost.message)
 
         AlertDialog.Builder(this)

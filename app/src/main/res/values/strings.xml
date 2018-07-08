@@ -2,4 +2,9 @@
     <string name="app_name">Payment Flow</string>
     <string name="amount">Monto</string>
     <string name="payment_methods">Método de pago</string>
+    <string name="choose_your_bank">Elegí tu banco</string>
+    <string name="installments">Cantidad de cuotas</string>
+    <string name="invalid_amount">Ingrese un monto válido</string>
+    <string name="done">Listo</string>
+    <string name="thank_you_for_your_purchase">¡Gracias por tu compra!</string>
 </resources>

@@ -20,5 +20,6 @@ class InstallmentsPresenter (private val navigationProvider: NavigationProvider)
                 .getInstallments(BuildConfig.ApiKey, amount, issuerId, methodId)
                 .map { installments: List<Installment> ->  installments[0].payerCosts}
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError{ error -> navigationProvider.onError(error) }
     }
 }

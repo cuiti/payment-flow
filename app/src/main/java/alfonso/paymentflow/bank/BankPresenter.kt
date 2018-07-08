@@ -18,5 +18,6 @@ class BankPresenter(private val navigationProvider: NavigationProvider): OnOptio
         return ApiManager.getMercadoPagoService()
                 .getCardIssuers(BuildConfig.ApiKey, id)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnError{ error -> navigationProvider.onError(error) }
     }
 }

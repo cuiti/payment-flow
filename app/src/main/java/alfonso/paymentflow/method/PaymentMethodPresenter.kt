@@ -22,6 +22,7 @@ class PaymentMethodPresenter(private val navigationProvider: NavigationProvider)
                 .filter{ method -> method.status == PaymentMethodStatus.ACTIVE}
                 .filter{ method -> method.paymentType == PaymentType.CREDIT_CARD}
                 .toList()
+                .doOnError{ error -> navigationProvider.onError(error) }
     }
 
     override fun onOptionClick(item: Any) {

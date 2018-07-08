@@ -50,9 +50,9 @@ class MainActivity : AppCompatActivity(), NavigationProvider {
         showCardIssuerSelection(method.id)
     }
 
-    override fun onCardIssuerSelected(issuer: CardIssuer) {
+    override fun onCardIssuerSelected(issuer: CardIssuer?) {
         paymentRequest.issuer = issuer
-        showInstallmentsSelection(paymentRequest.method.id, issuer.id, paymentRequest.amount)
+        showInstallmentsSelection(paymentRequest.method.id, issuer?.id?:"0", paymentRequest.amount)
     }
 
     override fun onInstallmentsSelected(costs: PayerCost) {
@@ -63,13 +63,21 @@ class MainActivity : AppCompatActivity(), NavigationProvider {
     private fun showValuesDialog(){
         val values = arrayOf("$"+paymentRequest.amount,
                             paymentRequest.method.name,
-                            paymentRequest.issuer.name,
+                            paymentRequest.issuer?.name,
                             paymentRequest.payerCost.message)
 
         AlertDialog.Builder(this)
                 .setTitle(R.string.thank_you_for_your_purchase)
                 .setItems(values) { _, _ -> restart() }
                 .setPositiveButton(R.string.done) { _, _ -> restart() }
+                .create().show()
+    }
+
+    override fun onError(error: Throwable) {
+        AlertDialog.Builder(this)
+                .setTitle("Ha ocurrido un error")
+                .setMessage("Intente nuevamente. \n"+error.localizedMessage)
+                .setPositiveButton("Ok"){ _,_ -> restart()}
                 .create().show()
     }
 

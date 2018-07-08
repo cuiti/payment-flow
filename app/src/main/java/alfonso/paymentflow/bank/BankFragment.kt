@@ -18,10 +18,10 @@ class BankFragment : Fragment() {
     private lateinit var paymentMethodId: String
 
     companion object {
-        const val idKey = "payment_method_id"
+        const val keyPaymentMethodId = "id_payment_method_id"
         fun init(id: String): BankFragment{
             val args = Bundle()
-            args.putString(idKey, id)
+            args.putString(keyPaymentMethodId, id)
             val fragment = BankFragment()
             fragment.arguments = args
             return fragment
@@ -31,7 +31,7 @@ class BankFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         presenter = BankPresenter(activity as NavigationProvider)
         adapter = OptionsAdapter(presenter)
-        paymentMethodId = arguments?.getString(idKey)?: ""
+        paymentMethodId = arguments?.getString(keyPaymentMethodId)?: ""
         return inflater.inflate(R.layout.fragment_option_list, container, false)
     }
 
